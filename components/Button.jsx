@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Button({ label, theme }) {
+export default function Button({ label, theme, onPress }) {
   if (theme === "primary") {
     return (
       <View
