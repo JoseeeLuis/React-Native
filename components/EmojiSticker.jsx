@@ -6,10 +6,12 @@ import Animated, {
 } from "react-native-reanimated";
 
 export default function EmojiSticker({ imageSize, stickerSource }) {
+  const translateX = useSharedValue(0);
+  const translateY = useSharedValue(0);
   const drag = Gesture.Pan().onChange((event) => {
-    translateX.value += event.changeX;
-    translateY.value += event.changeY;
-  });
+      translateX.value += event.changeX;
+      translateY.value += event.changeY;
+    });
   const scaleImage = useSharedValue(imageSize);
   const doubleTap = Gesture.Tap()
     .numberOfTaps(2)
@@ -18,14 +20,13 @@ export default function EmojiSticker({ imageSize, stickerSource }) {
         scaleImage.value = scaleImage.value * 2;
       }
     });
-  const imageStyle = useAnimatedStyle(() => {
-    return {
-      width: withSpring(scaleImage.value),
-      height: withSpring(scaleImage.value),
-    };
-  });
-  const translateX = useSharedValue(0);
-  const translateY = useSharedValue(0);
+    const imageStyle = useAnimatedStyle(() => {
+      return {
+        width: withSpring(scaleImage.value),
+        height: withSpring(scaleImage.value),
+      };
+    });
+
   const containerStyle = useAnimatedStyle(() => {
     return {
       transform: [
@@ -51,4 +52,5 @@ export default function EmojiSticker({ imageSize, stickerSource }) {
       </Animated.View>
     </GestureDetector>
   );
+  
 }
